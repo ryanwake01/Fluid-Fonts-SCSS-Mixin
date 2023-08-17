@@ -1,0 +1,39 @@
+@import '_fluid-fonts.scss';
+
+// Some simple Font Includes from Google
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,500;0,800;1,500;1,800&family=PT+Mono&family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap');
+
+
+h1, h2, h3, h4, h5, h6 {
+  color: gray;
+}
+
+h1 {
+  @include font(serif, _72, #000000);
+}
+
+h2 {
+  @include font(serif, _60);
+}
+
+h3 {
+  @include font(serif, _48, rgb(8, 69, 134))
+}
+
+p {
+  @include font(sans, _20);
+}
+
+ul {
+
+  li {
+    @include font(sans, _16, rgb(8,69,134));
+  }
+}
+
+code {
+  background-color: #000000;
+  display: flex;
+  @include font(mono, sm, rgb(87, 249, 87));
+  padding: .25rem .5rem;
+}

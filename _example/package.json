@@ -1,0 +1,16 @@
+{
+  "name": "fluid-fonts",
+  "version": "1.0.0",
+  "description": "A simple fluid font mixin example.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Wake",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-sass": "^5.1.0",
+    "sass": "^1.65.1"
+  }
+}

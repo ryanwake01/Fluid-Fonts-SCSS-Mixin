@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,500;0,800;1,500;1,800&family=PT+Mono&family=Roboto:ital,wght@0,100;0,400;0,700;1,100;1,400;1,700&display=swap");
+h1, h2, h3, h4, h5, h6 {
+  color: gray;
+}
+
+h1 {
+  color: #000000;
+  font-family: "Noto Serif", serif;
+  font-weight: 800;
+  font-size: 48px;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: calc(48px + 24 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  h1 {
+    font-size: 72px;
+    line-height: 1.25;
+  }
+}
+h1 > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h2 {
+  color: #000000;
+  font-family: "Noto Serif", serif;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) {
+  h2 {
+    font-size: calc(32px + 28 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  h2 {
+    font-size: 60px;
+    line-height: 1.25;
+  }
+}
+h2 > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+h3 {
+  color: rgb(8, 69, 134);
+  font-family: "Noto Serif", serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.3;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) {
+  h3 {
+    font-size: calc(28px + 20 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  h3 {
+    font-size: 48px;
+    line-height: 1.25;
+  }
+}
+h3 > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+p {
+  color: #000000;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) {
+  p {
+    font-size: calc(16px + 4 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  p {
+    font-size: 20px;
+    line-height: 1.6;
+  }
+}
+p > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+ul li {
+  color: rgb(8, 69, 134);
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: normal;
+}
+@media (min-width: 768px) {
+  ul li {
+    font-size: calc(12px + 4 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  ul li {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+}
+ul li > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}
+
+code {
+  background-color: #000000;
+  display: flex;
+  color: rgb(87, 249, 87);
+  font-family: "PT Mono", monospace;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: normal;
+  padding: 0.25rem 0.5rem;
+}
+@media (min-width: 768px) {
+  code {
+    font-size: calc(12px + 2 * ((100vw - 768px) / 432));
+  }
+}
+@media (min-width: 1200px) {
+  code {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+code > :not(a) {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+}

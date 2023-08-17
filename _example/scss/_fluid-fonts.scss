@@ -1,0 +1,145 @@
+// Only add mixins, maps to this file, any typography styles
+// should be in the styles/_typography.scss partial.
+@use 'sass:map';
+@use 'sass:math';
+
+$font-family-serif: 'Noto Serif', serif;
+$font-family-sans: 'Roboto', sans-serif;
+$font-family-mono: 'PT Mono', monospace;
+
+$fonts: (
+  'serif': (
+    '_72': (
+      'family': $font-family-serif,
+      'font-size-desktop': 72px,
+      'font-size-mobile': 48px,
+      'font-weight': 800,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.25,
+      'line-height-mobile': 1.3,
+      'text-transform': false,
+    ),
+    '_60': (
+      'family': $font-family-serif,
+      'font-size-desktop': 60px,
+      'font-size-mobile': 32px,
+      'font-weight': 500,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.25,
+      'line-height-mobile': 1.3,
+      'text-transform': false,
+    ),
+    '_48': (
+      'family': $font-family-serif,
+      'font-size-desktop': 48px,
+      'font-size-mobile': 28px,
+      'font-weight': 500,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.25,
+      'line-height-mobile': 1.3,
+      'text-transform': false,
+    ),
+  ),
+  'sans': (
+    '_20': (
+      'family': $font-family-sans,
+      'font-size-desktop': 20px,
+      'font-size-mobile': 16px,
+      'font-weight': 400,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.6,
+      'line-height-mobile': 1.4,
+      'text-transform': false,
+    ),
+    '_18': (
+      'family': $font-family-sans,
+      'font-size-desktop': 18px,
+      'font-size-mobile': 14px,
+      'font-weight': 400,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.6,
+      'line-height-mobile': 1.4,
+      'text-transform': false,
+    ),
+    '_16': (
+      'family': $font-family-sans,
+      'font-size-desktop': 16px,
+      'font-size-mobile': 12px,
+      'font-weight': 400,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.6,
+      'line-height-mobile': 1.4,
+      'text-transform': false,
+    ),
+  ),
+  'mono': (
+    'sm': (
+      'family': $font-family-mono,
+      'font-size-desktop': 14px,
+      'font-size-mobile': 12px,
+      'font-weight': normal,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.5,
+      'line-height-mobile': 1.25,
+      'text-transform': false,
+    ),
+    'lg': (
+      'family': $font-family-mono,
+      'font-size-desktop': 18px,
+      'font-size-mobile': 14px,
+      'font-weight': normal,
+      'letter-spacing': normal,
+      'line-height-desktop': 1.5,
+      'line-height-mobile': 1.25,
+      'text-transform': false,
+    ),
+  ),
+);
+
+
+
+@function strip-unit($value) {
+  @return math.div($value, $value * 0 + 1);
+}
+
+@mixin font(
+  $category: 'sans',
+  $size: '18',
+  $color: #000000,
+) {
+  $sizes: map.get($fonts, $category); // = header, bodycopy, eyebrow
+  $values: map.get($sizes, $size); // = lg, md, sm
+  $min-font-size: map.get($values, 'font-size-mobile');
+  $max-font-size: map.get($values, 'font-size-desktop');
+  $min-line-height: map.get($values, 'line-height-mobile');
+  $max-line-height: map.get($values, 'line-height-desktop');
+  $min-vw: 768px;
+  $max-vw: 1200px;
+  color: $color;
+  font-family: map.get($values, 'family');
+  font-weight: map.get($values, 'font-weight');
+  font-size: $min-font-size;
+  line-height: $min-line-height;
+
+  @media (min-width: $min-vw) {
+    font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+  }
+
+  @media (min-width: $max-vw) {
+    font-size: $max-font-size;
+    line-height: $max-line-height;
+  }
+
+  letter-spacing: map.get($values, 'letter-spacing');
+
+  @if map.get($values, 'text-transform') {
+    text-transform: map.get($values, 'text-transform');
+  }
+
+  // this prevents any element added to the parenthesis from pulling from a user stylesheet if it has not been defined in other spots in the css. 
+  & > :not(a) {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+  }
+}

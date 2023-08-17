@@ -1,0 +1,92 @@
+// Only add mixins, maps to this file, any typography styles
+// should be in the styles/_typography.scss partial.
+@use 'sass:map';
+@use 'sass:math';
+
+// These variables may live in other parts of your stylesheet. 
+$font-family-serif: 
+$font-family-sans: 
+$font-family-mono:
+
+/* 
+---------------------------------------------------------------------------------------------------
+**  SEE README FOR REAL SAMPLES OF FONT MAP STYLES  **
+Use the example below to roll your own, or copy paste from the examples provided. 
+---------------------------------------------------------------------------------------------------
+*/
+
+// EXAMPLE FONTS MAP
+// $fonts: (
+//   'key-section1': (
+//     'value': (
+//       'family': ,
+//       'font-size-desktop': ,
+//       'font-size-mobile': ,
+//       'font-weight': ,
+//       'letter-spacing': ,
+//       'line-height-desktop': ,
+//       'line-height-mobile': ,
+//       'text-transform': false,
+//     ),
+//   ),
+//   'key-section2': (
+//     'value': (
+//       'family': ,
+//       'font-size-desktop': ,
+//       'font-size-mobile': ,
+//       'font-weight': ,
+//       'letter-spacing': ,
+//       'line-height-desktop': ,
+//       'line-height-mobile': ,
+//       'text-transform': false,
+//     ),
+//   ),
+// );
+
+
+
+@function strip-unit($value) {
+  @return math.div($value, $value * 0 + 1);
+}
+
+@mixin font(
+  $category: '',    // Input your default category here. 
+  $size: '',        // Input your default size
+  $color: ,         // Input your default color, can be variables or any other css color value
+) {
+  $sizes: map.get($fonts, $category);  // = key
+  $values: map.get($sizes, $size); // = value
+  $min-font-size: map.get($values, 'font-size-mobile');
+  $max-font-size: map.get($values, 'font-size-desktop');
+  $min-line-height: map.get($values, 'line-height-mobile');
+  $max-line-height: map.get($values, 'line-height-desktop');
+  $min-vw: 768px;   // this could be replaced with a reference to a breakpoint variable. Bootstrap example => map.get($grid-breakpoints, 'md');
+  $max-vw: 1200px;  // this could be replaced with a reference to a breakpoint variable. Bootstrap example => map.get($grid-breakpoints, 'xl');
+  color: $color;
+  font-family: map.get($values, 'family');
+  font-weight: map.get($values, 'font-weight');
+  font-size: $min-font-size;
+  line-height: $min-line-height;
+
+  @media (min-width: $min-vw) {
+    font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+  }
+
+  @media (min-width: $max-vw) {
+    font-size: $max-font-size;
+    line-height: $max-line-height;
+  }
+
+  letter-spacing: map.get($values, 'letter-spacing');
+
+  @if map.get($values, 'text-transform') {
+    text-transform: map.get($values, 'text-transform');
+  }
+
+  // this prevents any element added to the parenthesis from pulling from a user stylesheet if it has not been defined in other spots in the css. 
+  & > :not(a) {
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+  }
+}
