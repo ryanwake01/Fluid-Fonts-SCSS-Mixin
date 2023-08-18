@@ -1,7 +1,7 @@
 # Fluid Font SCSS Mixin
 This is a simple fluid font mixin that references a font map that could be designed any way you like. The advantage to using the map is in that it gives designers freedom to add a lot of different variations of font styles without over complicating the stylesheet. All font styles are stored in one place. 
 
-**Requirements:** You will need a .scss compiler. The example uses a simple gulp sass compiler. 
+**Requirements:** You will need a .scss compiler. The **_example** uses a simple gulp sass compiler. 
 
 ## Font Map
 When creating the font map, you have the flexibility to organize it according to your preference. Ensure it adheres to the provided format and includes all necessary values. *Remember that font sizes should be specified in 'px'.*
