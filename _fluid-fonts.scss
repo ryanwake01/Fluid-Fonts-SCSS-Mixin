@@ -1,48 +1,37 @@
-// Only add mixins, maps to this file, any typography styles
-// should be in the styles/_typography.scss partial.
 @use 'sass:map';
 @use 'sass:math';
 
-// These variables may live in other parts of your stylesheet. 
-$font-family-serif: 
-$font-family-sans: 
-$font-family-mono:
+// These variables may live in other parts of your stylesheet.
+// This assumes you will have one of each type of font family. Rename these variables as needed for your project.
+// example: $font-family-opensans: "Open Sans", Verdana, sans-serif;
+$font-family-serif: sans-serif;
+$font-family-sans: sans;
+$font-family-mono: monospace, monospace;
 
-/* 
+
+/*
 ---------------------------------------------------------------------------------------------------
 **  SEE README FOR REAL SAMPLES OF FONT MAP STYLES  **
-Use the example below to roll your own, or copy paste from the examples provided. 
+Use the example below to roll your own, or copy paste from the examples provided.
 ---------------------------------------------------------------------------------------------------
 */
 
-// EXAMPLE FONTS MAP
+// Editor Note: When using the font size for the descriptor, it is necessary to start with the underscore to prevent scss compiler for choking. ( '_16' )
+
+// Default Font Map Starter
+// Uncomment the code below and start building out your font map!
 // $fonts: (
-//   'key-section1': (
-//     'value': (
-//       'family': ,
-//       'font-size-desktop': ,
-//       'font-size-mobile': ,
-//       'font-weight': ,
-//       'letter-spacing': ,
-//       'line-height-desktop': ,
-//       'line-height-mobile': ,
-//       'text-transform': false,
-//     ),
-//   ),
-//   'key-section2': (
-//     'value': (
-//       'family': ,
-//       'font-size-desktop': ,
-//       'font-size-mobile': ,
-//       'font-weight': ,
-//       'letter-spacing': ,
-//       'line-height-desktop': ,
-//       'line-height-mobile': ,
-//       'text-transform': false,
+//   'category': (
+//     'descriptor': (
+//       'family': $font-family-sans,
+//       'font-size-desktop': 16px,
+//       'font-size-mobile': 14px,
+//       'letter-spacing': normal,
+//       'line-height-desktop': 1.6,
+//       'line-height-mobile': 1.4,
 //     ),
 //   ),
 // );
-
 
 
 @function strip-unit($value) {
@@ -50,43 +39,38 @@ Use the example below to roll your own, or copy paste from the examples provided
 }
 
 @mixin font(
-  $category: '',    // Input your default category here. 
-  $size: '',        // Input your default size
-  $color: ,         // Input your default color, can be variables or any other css color value
+  $category: 'sans',    // Input your default category here - typically this would be the default font family of your bodycopy
+  $size: '_16',         // Input your default size - typically you would set this to your default bodycopy size
+  $weight: 400
 ) {
-  $sizes: map.get($fonts, $category);  // = key
-  $values: map.get($sizes, $size); // = value
-  $min-font-size: map.get($values, 'font-size-mobile');
-  $max-font-size: map.get($values, 'font-size-desktop');
-  $min-line-height: map.get($values, 'line-height-mobile');
-  $max-line-height: map.get($values, 'line-height-desktop');
-  $min-vw: 768px;   // this could be replaced with a reference to a breakpoint variable. Bootstrap example => map.get($grid-breakpoints, 'md');
-  $max-vw: 1200px;  // this could be replaced with a reference to a breakpoint variable. Bootstrap example => map.get($grid-breakpoints, 'xl');
-  color: $color;
-  font-family: map.get($values, 'family');
-  font-weight: map.get($values, 'font-weight');
-  font-size: $min-font-size;
-  line-height: $min-line-height;
+  $sizes: map-get($fonts, $category);
+  $values: map-get($sizes, $size);
+  $min-font-size: map-get($values, 'font-size-mobile');
+  $max-font-size: map-get($values, 'font-size-desktop');
+  $min-line-height: map-get($values, 'line-height-mobile');
+  $max-line-height: map-get($values, 'line-height-desktop');
+  $min-vw: 480px;
+  $max-vw: 1200px;
 
-  @media (min-width: $min-vw) {
+  & {
+    font-family: map-get($values, 'family');
+    font-weight: $weight;
+    font-size: $min-font-size;
+    line-height: $min-line-height;
+    letter-spacing: map-get($values, 'letter-spacing');
+  }
+
+  @media only screen and (min-width: #{$min-vw}) {
     font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
   }
 
-  @media (min-width: $max-vw) {
+  @media only screen and (min-width: #{$max-vw}) {
     font-size: $max-font-size;
     line-height: $max-line-height;
   }
-
-  letter-spacing: map.get($values, 'letter-spacing');
-
-  @if map.get($values, 'text-transform') {
-    text-transform: map.get($values, 'text-transform');
-  }
-
-  // this prevents any element added to the parenthesis from pulling from a user stylesheet if it has not been defined in other spots in the css. 
-  & > :not(a) {
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-  }
 }
+
+
+// Implementation Examples:
+  //@include font(sans, _18); ~ this inherits font-weight: 400
+  // @include font(sans, _18, 800); ~ overriding font-weight: 400
