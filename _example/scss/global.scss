@@ -9,31 +9,38 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  @include font(serif, _72, #000000);
+  color: rgb(8,69,134);
+  @include font(serif, _72, 600);
 }
 
 h2 {
-  @include font(serif, _60);
+  @include font(serif, _60, 200);
 }
 
 h3 {
-  @include font(serif, _48, rgb(8, 69, 134))
+  @include font(serif, _48, 400)
 }
 
 p {
-  @include font(sans, _20);
+  @include font(sans, _18);
+
+  &.lead {
+    @include font(sans, _24, 300);
+  }
 }
 
 ul {
 
   li {
-    @include font(sans, _16, rgb(8,69,134));
+    color: rgb(8,69,134);
+    @include font(sans, _16);
   }
 }
 
 code {
   background-color: #000000;
+  color: rgb(87, 249, 87);
   display: flex;
-  @include font(mono, sm, rgb(87, 249, 87));
-  padding: .25rem .5rem;
+  @include font(mono, sm);
+  padding: .5rem;
 }
